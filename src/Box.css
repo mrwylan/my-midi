@@ -1,0 +1,31 @@
+.box {
+    background: white;
+    color: purple;
+    width: 100%;
+    text-align: left;
+    border: solid;
+    border-color: aqua;
+    border-width: 0.25em;
+    padding: 0.25em;
+    margin: 0.25em;
+    
+}
+
+.box-label {
+    font-size: x-small;
+    font-weight: bold;
+    position: relative;
+    left: 2em;
+    top: -2em;
+    border:solid;
+    border-color: silver;
+    border-radius: 0.5em;
+    background: black;
+    width: max-content;
+    padding: 0.5em;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.box-verified {
+    color: greenyellow;
+}
