@@ -2,19 +2,19 @@ import React from 'react';
 import logo from './logo.svg';
 import note from './note.svg';
 import './App.css';
-import Box from './Box.js';
+import Box from './Box';
 
 function App() {
 
   return (<div className="App" >
     <header className="App-header" >
-      <Box title="MIDI in your browser" isVerified={navigator.requestMIDIAccess}>
+      <Box title="MIDI in your browser" isVerified={undefined !== navigator.requestMIDIAccess}>
       <img id="clickable"
         src={note}
         className="Note"
         alt="note"
-        onClick={ (e) => { console.log(e.target.classList);
-        e.target.classList.toggle("Note-Selected"); } } />
+        onClick={ (e) => { console.log((e.target as HTMLElement).classList);
+          (e.target as HTMLElement).classList.toggle("Note-Selected"); } } />
       </Box>
       <img src={logo}
         className="App-logo"
