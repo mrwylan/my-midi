@@ -49,9 +49,9 @@ function App() {
            src={note}
            className="Note"
            alt="note"
-           onClick={ (e) => { console.log((e.target as HTMLElement).classList);
+           onClick={ (e) => { 
              (e.target as HTMLElement).classList.toggle("Note-Selected"); 
-             var input = WebMidi.getInputByName(name) as Input;
+             var input = WebMidi.getInputByName(name) as Input;             
              if(!input.hasListener("noteon","all", noteOnListener)) 
                input.addListener("noteon", "all", noteOnListener )
              else 
@@ -79,7 +79,7 @@ function App() {
       </main>
       <footer>
       <Box title="Debug">
-        <p><small>{ourState.noteOn? "[" + ourState.noteOn.channel + "] " + printerify(ourState.noteOn?.note):null}</small></p>
+        <small>{ourState.noteOn !== null? "[" + ourState.noteOn.channel + "] " + printerify(ourState.noteOn?.note):"missing note"}</small>
       </Box>
       </footer>
         </div>
