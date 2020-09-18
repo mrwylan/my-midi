@@ -4,6 +4,7 @@ import note from './note.svg';
 import './App.css';
 import Box from './Box';
 import WebMidi, {Input, Output, InputEventNoteon, IEventNote} from 'webmidi';
+import { ChannelNote, ChannelScale, SemitoneSteps } from './ChannelBox';
 
 type AppState = {
   midiIn: Input[],
@@ -61,21 +62,19 @@ function App() {
          })}
 
       </Box>
-      <img src={logo}
-        className="App-logo"
-        alt="logo"
-         />
-      <p>
-        Edit 
-        <code> src / App.js </code> and save to reload. </p> 
-        <a className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer" >
-            Learn React </a> 
+   
         
     </header>
     <main>
+      <Box title="Piano">
+        <div className='pianorole'>
+         { new ChannelScale(new ChannelNote(60),SemitoneSteps.Chromatic).notes().map((x,i) => (
+         <div key={i} className={x.isBlackKey()?'blackkey':'whitekey'}>
+           {x.name()}
+        </div>
+         )) }
+        </div>
+      </Box>
       </main>
       <footer>
       <Box title="Debug">

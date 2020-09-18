@@ -68,6 +68,32 @@
     visibility: visible;
   }
 
+.pianorole {
+    display: flex;
+    width: 100%;
+    border: 0.1em black;
+    border-style: solid;
+}
+.whitekey {
+    display: block;
+    background-color: white;    
+    width: 2em;
+    height: 4em;
+    text-align: center;
+    border-style: solid;
+    border-color: bisque;
+}
+.blackkey {
+    display: block;
+    background-color: black;
+    width: 2em;
+    height: 4em;
+    text-align: center;
+}
+
+
+
+
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);

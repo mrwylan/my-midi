@@ -64,11 +64,52 @@ export class ChannelScale {
 
 }
 
+export class ChannelChord extends ChannelScale {
+
+    static Major = [0,4,7];
+    static Minor = [0,3,7];
+
+    constructor(readonly rootNote: ChannelNote, readonly steps: number[]){
+        super(rootNote,steps);
+    }
+    
+    public noteForStep(step: number): ChannelNote { 
+        return new ChannelNote( this.rootNote.midiNote + this.steps[step]);
+    }
+
+    //public notes(): ChannelNote[] { return Array.from(Array(this.steps.length).keys()).map(step => this.noteForStep(step));  }
+
+}
+
 export class ChannelBox {
     public notes: ChannelNote[] = [];
 
-    // TODO : function noteOn()
+    public find(midiNote: number): number{
+        return this.notes.map(n => n.midiNote).indexOf(midiNote);
+    }
 
-    // TODO : function noteOff()
+    public noteOn(midiNote: number): ChannelBox{
+        this.noteOff(midiNote);
+        this.notes.push(new ChannelNote(midiNote));
+        return this;
+    }
+
+    public notesOn(midiNotes: number[]): ChannelBox{
+        midiNotes.forEach(n => this.noteOn(n));
+        return this;
+    }
+
+    public noteOff(midiNote: number): ChannelBox{
+        var alreadyPlaying = this.find(midiNote);
+        if(-1 < alreadyPlaying){
+            this.notes.splice(alreadyPlaying, 1);
+        }
+        return this;
+    }
+
+    public notesOff(midiNotes: number[]): ChannelBox{
+        midiNotes.forEach(n => this.noteOff(n));
+        return this;
+    }
 
 }

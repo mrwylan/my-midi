@@ -1,4 +1,4 @@
-import { ChannelNote, ChannelScale, SemitoneSteps } from "./ChannelBox";
+import { ChannelBox, ChannelChord, ChannelNote, ChannelScale, SemitoneSteps } from "./ChannelBox";
 
 describe('channelNote', function(){
     it('midiNote', function() {
@@ -64,5 +64,49 @@ describe('channelScale', function(){
         expect(scale.notes().length).toBe(12);
         expect([...scale.notes()].pop()?.midiNote).toBe(71)
     })
+});
 
+describe('channelChord', function(){
+    it('chordMajor', function() {        
+        let note = new ChannelNote(36);
+        let scale = new ChannelChord(note, ChannelChord.Major);    
+        expect(scale.notes().length).toBe(3);
+        expect(scale.notes().map(x => x.midiNote)).toContain(36);
+        expect(scale.notes().map(x => x.midiNote)).toContain(40);
+        expect(scale.notes().map(x => x.midiNote)).toContain(43);
+    })
+    it('chordMinor', function() {        
+        let note = new ChannelNote(36);
+        let scale = new ChannelChord(note, ChannelChord.Minor);    
+        expect(scale.notes().length).toBe(3);
+        expect(scale.notes().map(x => x.midiNote)).toContain(36);
+        expect(scale.notes().map(x => x.midiNote)).toContain(39);
+        expect(scale.notes().map(x => x.midiNote)).toContain(43);
+    })
+});
+
+describe('channelBox', function(){
+    it('noteOn', function() {    
+        let channel = new ChannelBox();    
+        channel.noteOn(36);             
+        expect(channel.notes[0].midiNote).toBe(36);
+    })
+    it('notesOn', function() {        
+        let note = new ChannelNote(36);
+        let chord = new ChannelChord(note, ChannelChord.Major);    
+        let channel = new ChannelBox();
+
+        channel.notesOn(chord.notes().map(midi => midi.midiNote));
+
+        expect(channel.notes.length).toBe(3);
+        expect(channel.notes.map(x => x.midiNote)).toContain(40);
+    })
+    it('noteOff', function() {    
+        let channel = new ChannelBox().noteOn(36);    
+        
+        channel.noteOff(36);
+        channel.noteOff(69);
+       
+        expect(channel.notes.length).toBe(0);
+    })
 });
