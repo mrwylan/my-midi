@@ -1,5 +1,9 @@
 .App {
     text-align: center;
+    background-color: #282c34;
+    min-height: 100vh;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 .App-logo {
@@ -29,7 +33,7 @@
 
 .App-header {
     background-color: #282c34;
-    min-height: 100vh;
+/*    min-height: 100vh;*/
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -74,21 +78,26 @@
     border: 0.1em black;
     border-style: solid;
 }
-.whitekey {
+.whitekey, .blackkey {
     display: block;
-    background-color: white;    
     width: 2em;
     height: 4em;
     text-align: center;
     border-style: solid;
-    border-color: bisque;
+}
+.whitekey {
+    background-color: white;
+    border-color: bisque;       
+}
+.whitekey:hover {
+    background-color: bisque;
 }
 .blackkey {
-    display: block;
-    background-color: black;
-    width: 2em;
-    height: 4em;
-    text-align: center;
+    background-color: black;    
+    border-color: #424242;
+}
+.blackkey:hover {
+    background-color: #424242;
 }
 
 
