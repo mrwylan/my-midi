@@ -54,7 +54,7 @@ export class ChannelScale {
     constructor(readonly rootNote: ChannelNote, readonly steps: number[]){}
 
     public noteForStep(step: number): ChannelNote { 
-        if(0 == step){
+        if(0 === step){
             return new ChannelNote(this.rootNote.midiNote);
         }
         return new ChannelNote( this.rootNote.midiNote + this.steps.slice(0, step).reduce((x, y) => x+y))        
