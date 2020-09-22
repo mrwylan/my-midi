@@ -21,18 +21,11 @@ function PropertyButton() {
         midiControlValue: 10
     }
     const [ourState, ourSetState] = useState(() => initialState);
-    //const { controlState, midiControl, midiControlValue } = ourState;
-
 
     const handleControlState = (newState: ControlState) => 
     {
         ourSetState({ ...ourState, controlState: newState});        
     };
-    const handleSubmit = (event: React.FormEvent, newState: ControlState) => {
-        console.log('Handle submit: ' + newState);
-        handleControlState(newState);
-        event.preventDefault();
-    }
 
     var formPresentationReadOnly =
         <div className={'compact'}>
