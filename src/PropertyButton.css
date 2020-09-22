@@ -1,0 +1,35 @@
+.expanded {
+    color: blue;
+}
+
+.compact {
+    color: red;
+}
+
+form {
+    background-color: bisque;
+    width: fit-content;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    border: 0.1rem;
+    border-color: black;
+    border-style: solid;
+}
+
+form:hover {
+    background-color: burlywood;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: smaller;
+    font-variant: small-caps;
+    margin: 0.2rem;
+    padding-right: 0.2rem;    
+}
+
+input {
+    margin-left: 1rem;
+}

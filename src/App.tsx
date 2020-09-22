@@ -4,6 +4,7 @@ import './App.css';
 import Box from './Box';
 import WebMidi, {Input, Output, InputEventNoteon, IEventNote} from 'webmidi';
 import { ChannelNote, ChannelScale, SemitoneSteps } from './ChannelBox';
+import PropertyButton from './PropertyButton';
 
 type AppState = {
   midiIn: Input[],
@@ -95,6 +96,8 @@ function App() {
         <button disabled={ ourState.output === null} onClick={ (e) => { ourState.output?.sendControlChange(0, 1, "all")          
           .sendProgramChange(0,"all")
           }}>Bank 2 Programm 1</button>
+
+        <PropertyButton />
       </Box>
       <Box title="Piano">
         <div className='pianorole'>
