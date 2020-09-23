@@ -67,6 +67,7 @@ export class ChannelScale {
 export class ChannelChord extends ChannelScale {
 
     static Major = [0,4,7];
+    static Major7 = [0,4,7,11];
     static Minor = [0,3,7];
 
     constructor(readonly rootNote: ChannelNote, readonly steps: number[]){

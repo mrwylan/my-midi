@@ -45,6 +45,7 @@ function App() {
   return (<div className="App" >
     
     <header className="App-header" >
+
       <Box title="MIDI IN" isVerified={undefined !== navigator.requestMIDIAccess}>
 
         { Array.from(midiIn.values(), (value, key) => {
@@ -66,8 +67,12 @@ function App() {
 
       </Box>
 
-      <Box title="MIDI OUT" isVerified={undefined !== navigator.requestMIDIAccess}>
+      <Box title="FX">
+         <img className="Note" alt="" />
+      </Box>
 
+      <Box title="MIDI OUT" isVerified={undefined !== navigator.requestMIDIAccess}>
+        <img className="Note" alt="" />
         { Array.from(midiOut.values(), (value, key) => {
            const name : string = value.name;
            return       <div key={key + "x" + value.id} className="tooltip"><img id={value.id}
@@ -91,13 +96,13 @@ function App() {
    
         
     </header>
-    <main className="App-header">
+    <main className="App-main">
       <Box title="CC Control">        
         <button disabled={ ourState.output === null} onClick={ (e) => { ourState.output?.sendControlChange(0, 1, "all")          
           .sendProgramChange(0,"all")
           }}>Bank 2 Programm 1</button>
 
-        <PropertyButton />
+        <PropertyButton ccsend={ (controlState) => { ourState.output?.sendControlChange(controlState.midiControl, controlState.midiControlValue, "all"); } } />
       </Box>
       <Box title="Piano">
         <div className='pianorole'>
@@ -112,7 +117,7 @@ function App() {
         </div>
       </Box>
       </main>
-      <footer className="App-header">
+      <footer className="App-footer">
       <Box title="Debug">
         <small>{ourState.noteOn !== null? "[" + ourState.noteOn.channel + "] " + printerify(ourState.noteOn?.note):"missing note"}</small>
       </Box>

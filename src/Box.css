@@ -1,14 +1,12 @@
 .box {
     background: white;
     color: purple;
-    width: 80vw;
     text-align: left;
     border: solid;
     border-color: aqua;
     border-width: 0.25em;
     padding: 0.25em;
-    margin: 0.25em;
-    
+    margin: 0.25em;    
 }
 
 .box-label {

@@ -13,7 +13,11 @@ type PropertyButtonState = {
     midiControlValue : number   
 }
 
-function PropertyButton() {
+type PropertyButtonProps = {
+    ccsend : (controlState : PropertyButtonState ) => void
+}
+
+function PropertyButton({ ccsend } : PropertyButtonProps ) {
 
     const initialState : PropertyButtonState = {
         controlState: ControlState.ReadOnly,
@@ -27,15 +31,16 @@ function PropertyButton() {
         ourSetState({ ...ourState, controlState: newState});        
     };
 
-    var formPresentationReadOnly =
+    const formPresentationReadOnly =
         <div className={'compact'}>
             <label>Action
-                <input type="button" name="send" value="send" />
+                <input type="button" name="send" value="send" onClick={(e) => {ccsend(ourState); e.preventDefault(); }} />
                 <input type="button" name="record" value="record" onClick={(e) => { handleControlState(ControlState.Recording); e.preventDefault();} } />
                 <input type="button" name="edit" value="edit" onClick={(e) => { handleControlState(ControlState.Edit); e.preventDefault(); }} />
             </label>
         </div>;
-    var formPresentationEditAndRecord =
+
+    const formPresentationEditAndRecord =
         <div className={'expanded'}>
             <label>Accept
                 <input type="button" name="submit" value="submit" onClick={(e) => {handleControlState(ControlState.ReadOnly); e.preventDefault();}}  />
@@ -49,8 +54,7 @@ function PropertyButton() {
         </div>;
    
     return (
-        <form onSubmit={(event) => { event.preventDefault()}}>            
-             {console.log(ourState)}
+        <form onSubmit={(event) => { event.preventDefault()}}>                        
              {(ourState.controlState === ControlState.ReadOnly)?
              formPresentationReadOnly:formPresentationEditAndRecord}                          
         </form>
