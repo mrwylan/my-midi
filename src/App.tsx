@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import note from './note.svg';
+import fx from './fx.svg';
 import './App.css';
 import Box from './Box';
 import WebMidi, {Input, Output, InputEventNoteon, IEventNote} from 'webmidi';
@@ -68,7 +69,10 @@ function App() {
       </Box>
 
       <Box title="FX">
-         <img className="Note" alt="" />
+        <div className="tooltip">
+          <img className="Note" alt="FX" src={fx} />
+          <span className="tooltiptext">Simple Midi Effekt</span>
+        </div>
       </Box>
 
       <Box title="MIDI OUT" isVerified={undefined !== navigator.requestMIDIAccess}>
@@ -102,13 +106,17 @@ function App() {
           .sendProgramChange(0,"all")
           }}>Bank 2 Programm 1</button>
 
-        <PropertyButton ccsend={ (controlState) => { ourState.output?.sendControlChange(controlState.midiControl, controlState.midiControlValue, "all"); } } />
+        <PropertyButton ccsend={ (controlState) => { 
+          console.log(controlState);
+          console.log(ourState.output);
+          ourState.output?.sendControlChange(controlState.midiControl, controlState.midiControlValue, "all"); } } />
       </Box>
       <Box title="Piano">
         <div className='pianorole'>
          { new ChannelScale(new ChannelNote(60),SemitoneSteps.Chromatic).notes().map((x,i) => (
          <div key={i} className={x.isBlackKey()?'blackkey':'whitekey'}
-          onMouseDown={ (e) => { ourState.output?.playNote( x.midiNote, "all", { duration: 10000 }) }}
+          onMouseDown={ (e) => { 
+            ourState.output?.playNote( x.midiNote, 10, { duration: 10000, velocity: 100 }); }}
           onMouseUp={ (e) => { ourState.output?.stopNote( x.midiNote, "all") }} 
          >
            {x.name()}

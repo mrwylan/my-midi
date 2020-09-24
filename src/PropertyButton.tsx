@@ -1,5 +1,6 @@
 import React, { useState }  from 'react';
 import './PropertyButton.css';
+import Devices from './Devices.json'
 
 enum ControlState {
     ReadOnly,
@@ -19,6 +20,8 @@ type PropertyButtonProps = {
 
 function PropertyButton({ ccsend } : PropertyButtonProps ) {
 
+    const ccLabel = Devices[0].device.cc;
+
     const initialState : PropertyButtonState = {
         controlState: ControlState.ReadOnly,
         midiControl: 0,
@@ -34,6 +37,7 @@ function PropertyButton({ ccsend } : PropertyButtonProps ) {
     const formPresentationReadOnly =
         <div className={'compact'}>
             <label>Action
+                <p>{ccLabel.find(cc => cc.ccNumber === ourState.midiControl)?.label + '('+ourState.midiControl+') ' + ourState.midiControlValue + ' '}</p>
                 <input type="button" name="send" value="send" onClick={(e) => {ccsend(ourState); e.preventDefault(); }} />
                 <input type="button" name="record" value="record" onClick={(e) => { handleControlState(ControlState.Recording); e.preventDefault();} } />
                 <input type="button" name="edit" value="edit" onClick={(e) => { handleControlState(ControlState.Edit); e.preventDefault(); }} />
