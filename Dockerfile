@@ -1,11 +1,15 @@
 # --- base the node ---
 # @see: https://codefresh.io/docker-tutorial/node_docker_multistage/
-FROM node:latest AS base
+#
+# to build and publish use
+#   docker buildx build --push --platform linux/amd64,linux/arm64 -t jaaltrch/my-midi .
+# to run
+#   docker pull jaaltrch/my-midi
+#   docker run -p 8080:80 -d --rm --name my-midi jaaltrch/my-midi
+FROM node:current-alpine AS base
 
 WORKDIR /ws/my-midi
 COPY package.json .
-
-ENTRYPOINT ["/sbin/tini", "--"]
 
 # --- extend the dependencies ---
 FROM base AS dependencies
@@ -28,6 +32,9 @@ FROM base AS release
 COPY --from=dependencies /ws/my-midi/prod_node_modules ./node_modules
 # copy app sources
 COPY . .
-# expose port and define CMD
-EXPOSE 3000
-CMD npm start
+CMD npm run build
+
+# --- image
+FROM nginx:alpine AS runtime
+
+COPY --from=release /ws/my-midi/build /usr/share/nginx/html
