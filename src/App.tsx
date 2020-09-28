@@ -84,6 +84,7 @@ function App() {
            className="Note"
            alt="note"
            onClick={ (e) => { 
+             debugger;
              (e.target as HTMLElement).classList.toggle("Note-Selected"); 
              let out = WebMidi.getOutputByName(name) as Output
              if(ourState.output?.id === out?.id){
@@ -101,6 +102,9 @@ function App() {
         
     </header>
     <main className="App-main">
+      <Box title="Route">
+        
+      </Box>
       <Box title="CC Control">        
         <button disabled={ ourState.output === null} onClick={ (e) => { ourState.output?.sendControlChange(0, 1, "all")          
           .sendProgramChange(0,"all")

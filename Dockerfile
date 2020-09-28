@@ -1,8 +1,6 @@
 # --- base the node ---
 # @see: https://codefresh.io/docker-tutorial/node_docker_multistage/
-FROM node:14.11-alpine3.12 AS base
-
-RUN apk add --no-cache tini
+FROM node:latest AS base
 
 WORKDIR /ws/my-midi
 COPY package.json .
