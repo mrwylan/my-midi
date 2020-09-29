@@ -32,7 +32,7 @@ FROM base AS release
 COPY --from=dependencies /ws/my-midi/prod_node_modules ./node_modules
 # copy app sources
 COPY . .
-CMD npm run build
+RUN npm run build
 
 # --- image
 FROM nginx:alpine AS runtime
